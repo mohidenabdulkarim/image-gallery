@@ -24,10 +24,6 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-function cn(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
 type Props = {
   images: Image[];
 };
@@ -46,7 +42,7 @@ const Gallery: NextPage<Props> = ({ images }) => {
   function BlurImage({ image }: { image: Image }) {
     const [isLoading, setIsLoading] = useState(true);
     return (
-      <a href="#" className="group">
+      <a href={image.href} className="group">
         <div className="aspect-w-1 aspect-h-1 xl:aspect-w-7 xl:aspect-h-8 w-full overflow-hidden rounded-lg bg-gray-200">
           <Image
             src={image.imageSrc}
@@ -56,12 +52,6 @@ const Gallery: NextPage<Props> = ({ images }) => {
                 ? "grayscale blur-2xl scale-110"
                 : "grayscale-0 blur-0 scale-100"
             }`}
-            // className={cn(
-            //   "group-hover:opacity-75 duration-700 ease-in-out",
-            //   isLoading
-            //     ? "grayscale blur-2xl scale-110"
-            //     : "grayscale-0 blur-0 scale-100"
-            // )}
             layout="fill"
             objectFit="cover"
             onLoadingComplete={() => setIsLoading(false)}
